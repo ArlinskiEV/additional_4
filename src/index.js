@@ -14,7 +14,19 @@ module.exports = function multiply(first, second) {
     //console.log('to correct='+array);
     for (var i = 0; ((i < array.length) && (array[i] != null)); i++) {
       if (Math.trunc(array[i]/10) > 0) {
-        array[i + 1] += Math.trunc(array[i]/10);
+        //console.log('-----array['+i+']='+array[i]+' array['+(i+1)+']='+array[i+1]);
+
+        //very accuracy!
+        if (array[i + 1] != undefined) {
+          array[i + 1] += Math.trunc(array[i]/10);
+        } else {
+          array[i + 1] = Math.trunc(array[i]/10);
+        }
+
+
+        if ( array[i + 1]!=array[i + 1] ) {
+          //console.log('+++++array['+i+']='+array[i]+' array['+(i+1)+']='+array[i+1]);
+        }
       }
       array[i] = array[i] % 10;
     }
