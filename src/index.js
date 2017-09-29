@@ -3,9 +3,23 @@ module.exports = function multiply(first, second) {
   function toArr(long) {
     var result = [];
     for (var i = 0; i < long.length; i++) {
-      result.push(+long[i]);
+      result.unshift(+long[i]);
     }
+    //console.log('long='+long);
+    //console.log('resolve='+result);
     return result;
+  }
+
+  function correct(array) {
+    //console.log('to correct='+array);
+    for (var i = 0; ((i < array.length) && (array[i] != null)); i++) {
+      if (Math.trunc(array[i]/10) > 0) {
+        array[i + 1] += Math.trunc(array[i]/10);
+      }
+      array[i] = array[i] % 10;
+    }
+    //console.log('after='+array);
+    return array;
   }
 
   var a,
@@ -19,18 +33,21 @@ module.exports = function multiply(first, second) {
     b = toArr(first);
   }
 
-  for (var i < b.length; i++) {
+  for (var i =0; i < a.length; i++) {
     //for every digit in smaller numbers
-    for (var j = 0; j < a.length; j++) {
-      result[j + i] += a[j] * b[i];
+    for (var j = 0; j < b.length; j++) {
+      result[j + i] = a[i] * b[j] + ((result[j + i] > 0) ? result[j + i]:0);
     }
+    //console.log('a['+i+']='+a[i]);
+    //console.log('res='+result);
   }
 
   //correct
-  for (var i = 0; ((i < result.length) && (result[i] != null)); i++) {
-    result[i + 1] = Math.trunc(result[i]/10);
-    result[i] = result[i] % 10;
+  result = correct(result);
+  var temp = "";
+  for (var i = result.length - 1; i>=0; i--) {
+    temp += result[i].toString();
   }
 
-  return result.reverse().toString();
+  return temp;
 }
